@@ -6,7 +6,7 @@ A minimal, **working** reinforcement learning demo you can extend.
 - Evaluates and prints metrics.
 - Optionally records a short rollout video.
 
-Demo:
+Demo: 
 
 ![CartPole PPO demo (mp4->gif)](videos/cartpole_demo-episode-0.gif)
 
@@ -31,12 +31,11 @@ python src/record_video.py --model-path outputs/cartpole_ppo.zip --gif
 ```
 
 ## Repo structure
-- `src/train.py`  trains PPO and saves the model
-- `src/evaluate.py`  evaluates the saved model (mean reward, success rate)
-- `src/record_video.py`  records a short video via Gymnasium RecordVideo wrapper
-- `outputs/`  saved models + plots (created at runtime)
-- `videos/`  recorded demos (created at runtime)
-
+- `src/train.py` — trains PPO and saves the model
+- `src/evaluate.py` — evaluates the saved model (mean reward, success rate)
+- `src/record_video.py` — records a short video via Gymnasium RecordVideo wrapper
+- `outputs/` — saved models + plots (created at runtime)
+- `videos/` — recorded demos (created at runtime)
 ## Future plans 
 - Add a second environment (`Acrobot-v1`), compare training curves
 - Add hyperparameter sweep + a short results table
