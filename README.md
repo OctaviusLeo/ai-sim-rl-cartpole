@@ -8,6 +8,8 @@ A minimal, **working** reinforcement learning demo you can extend.
 
 Demo: 
 
+![clean-run demo](assets/cartpole_demo-episode-0.gif)
+
 ## Quickstart
 \`\`\`bash
 python -m venv .venv
