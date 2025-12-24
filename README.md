@@ -9,13 +9,13 @@ A minimal, **working** reinforcement learning demo you can extend.
 Demo: 
 
 ## Quickstart
-```bash
+\`\`\`bash
 python -m venv .venv
 # Windows: .venv\Scripts\activate
 # macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
 
-# Train
+# Train (Will take around 3 minutes)
 python src/train.py
 
 # Evaluate
@@ -23,7 +23,10 @@ python src/evaluate.py --model-path outputs/cartpole_ppo.zip
 
 # Record a short demo video (saved to videos/)
 python src/record_video.py --model-path outputs/cartpole_ppo.zip
-```
+
+# Record video and also export a GIF
+python src/record_video.py --model-path outputs/cartpole_ppo.zip --gifAdded Quickstart instructions for recording a GIF with --gif alongside the video export in
+\`\`\`
 
 ## Repo structure
 - `src/train.py` — trains PPO and saves the model
