@@ -1,0 +1,12 @@
+# Quick test configuration for fast iteration
+env: CartPole-v1
+timesteps: 10000
+seed: 42
+n_steps: 512
+batch_size: 32
+gae_lambda: 0.95
+gamma: 0.99
+n_epochs: 5
+ent_coef: 0.0
+learning_rate: 0.001
+clip_range: 0.2

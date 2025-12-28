@@ -15,6 +15,8 @@ from common import (
     TrainConfig,
     create_run_dir,
     ensure_dirs,
+    load_config_from_file,
+    merge_config_with_args,
     save_config,
     save_metrics,
     set_global_seed,
@@ -45,6 +47,7 @@ class RewardLogger(BaseCallback):
 
 def main() -> None:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--config", type=str, help="Path to config file (JSON or YAML)")
     parser.add_argument("--env", default="CartPole-v1")
     parser.add_argument("--timesteps", type=int, default=200_000)
     parser.add_argument("--seed", type=int, default=42)
@@ -54,29 +57,47 @@ def main() -> None:
     args = parser.parse_args()
 
     ensure_dirs()
-    set_global_seed(args.seed)
-
-    config = TrainConfig(
-        env=args.env,
-        timesteps=args.timesteps,
-        seed=args.seed,
-        n_steps=args.n_steps,
-        batch_size=args.batch_size,
-        learning_rate=args.learning_rate,
-    )
+    
+    if args.config:
+        config = load_config_from_file(args.config, TrainConfig)
+        override_dict = {
+            "env": args.env if args.env != "CartPole-v1" else None,
+            "timesteps": args.timesteps if args.timesteps != 200_000 else None,
+            "seed": args.seed if args.seed != 42 else None,
+            "n_steps": args.n_steps if args.n_steps != 2048 else None,
+            "batch_size": args.batch_size if args.batch_size != 64 else None,
+            "learning_rate": args.learning_rate if args.learning_rate != 3e-4 else None,
+        }
+        override_dict = {k: v for k, v in override_dict.items() if v is not None}
+        if override_dict:
+            config = merge_config_with_args(config, override_dict)
+            print(f"Loaded config from {args.config} with overrides: {override_dict}")
+        else:
+            print(f"Loaded config from {args.config}")
+    else:
+        config = TrainConfig(
+            env=args.env,
+            timesteps=args.timesteps,
+            seed=args.seed,
+            n_steps=args.n_steps,
+            batch_size=args.batch_size,
+            learning_rate=args.learning_rate,
+        )
+    
+    set_global_seed(config.seed)
 
     run_dir = create_run_dir(config)
     save_config(config, run_dir)
     print(f"Run directory: {run_dir}")
 
-    env = gym.make(args.env)
-    env.reset(seed=args.seed)
+    env = gym.make(config.env)
+    env.reset(seed=config.seed)
 
     model = PPO(
         policy="MlpPolicy",
         env=env,
         verbose=1,
-        seed=args.seed,
+        seed=config.seed,
         n_steps=config.n_steps,
         batch_size=config.batch_size,
         gae_lambda=config.gae_lambda,
@@ -89,7 +110,7 @@ def main() -> None:
     )
 
     cb = RewardLogger()
-    model.learn(total_timesteps=args.timesteps, callback=cb)
+    model.learn(total_timesteps=config.timesteps, callback=cb)
 
     model_path = run_dir / "model"
     model.save(str(model_path))

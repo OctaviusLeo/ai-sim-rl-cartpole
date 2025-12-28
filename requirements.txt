@@ -8,3 +8,4 @@ moviepy==1.0.3
 imageio[ffmpeg]>=2.36.0
 scipy>=1.10.0
 tensorboard>=2.14.0
+pyyaml>=6.0.0

@@ -3,11 +3,13 @@ Besides simulations being cool, implementing AI is used to test.
 
 A minimal, **working** reinforcement learning demo, can extend.
 - Trains a PPO agent on `CartPole-v1` (Gymnasium).
+- Config file system with YAML/JSON support and CLI overrides.
 - Per-run experiment tracking with config and metrics.
 - TensorBoard logging for training visualization.
 - Multi-seed evaluation with confidence intervals.
 - Baseline comparison suite with statistical rigor.
 - CSV and Markdown export for publication-ready tables.
+- Reproduce exact runs from saved configurations.
 - Optionally records a short rollout video.
 
 Demo:
@@ -23,6 +25,15 @@ pip install -r requirements.txt
 
 # Train with experiment tracking (creates outputs/runs/<timestamp>_<env>_seed<seed>_<git-hash>/)
 python src/train.py --timesteps 200000 --seed 42
+
+# Train using a config file (YAML or JSON)
+python src/train.py --config configs/default.yaml
+
+# Train with config file and override specific parameters
+python src/train.py --config configs/default.yaml --seed 999 --timesteps 50000
+
+# Reproduce exact run from saved config
+python src/reproduce.py outputs/runs/<run-dir>
 
 # Evaluate with multi-seed runs and confidence intervals
 python src/evaluate.py --model-path outputs/runs/<run-dir>/model.zip --episodes 20 --num-seeds 5 --save-results
@@ -44,8 +55,12 @@ python src/record_video.py --model-path outputs/runs/<run-dir>/model.zip --gif
 - `src/train.py` - trains PPO and saves the model with experiment tracking
 - `src/evaluate.py` - evaluates the saved model with multi-seed support
 - `src/compare.py` - compares models against baselines with statistical tests
+- `src/reproduce.py` - reproduces a training run from saved config
 - `src/record_video.py` - records a short video via Gymnasium RecordVideo wrapper
 - `src/common.py` - shared utilities for experiment tracking and reproducibility
+- `configs/` - example configuration files (YAML)
+  - `default.yaml` - standard training configuration
+  - `quick_test.yaml` - fast iteration configuration
 - `outputs/runs/` - per-run experiment directories (created at runtime)
   - Each run contains: `config.json`, `model.zip`, `training_metrics.json`, `training_returns.png`, `tensorboard/`
 - `outputs/comparisons/` - baseline comparison results (CSV and Markdown)
@@ -64,6 +79,20 @@ python src/record_video.py --model-path outputs/runs/<run-dir>/model.zip --gif
 **Multi-seed evaluation**: Evaluate across multiple seeds with aggregated statistics and 95% confidence intervals.
 
 **Saved evaluation results**: Use `--save-results` to export evaluation metrics to JSON.
+
+## Configuration System
+
+**Config file support**: Define all training hyperparameters in YAML or JSON files for clean, version-controlled experiments.
+
+**CLI override mechanism**: Load a config file and selectively override parameters via command-line arguments.
+
+**Automatic config saving**: Every training run saves its complete configuration to `config.json` in the run directory.
+
+**Reproducible runs**: Use `reproduce.py` to exactly recreate any previous training run from its saved config.
+
+**Example configs provided**: `configs/default.yaml` for standard training and `configs/quick_test.yaml` for rapid iteration.
+
+**Flexible workflow**: Use config files for base settings and CLI args for quick experiments without editing files.
 
 ## Evaluation Suite
 

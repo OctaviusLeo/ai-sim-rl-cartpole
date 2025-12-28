@@ -5,12 +5,13 @@ import json
 import os
 import random
 import subprocess
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, fields
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, Optional
 
 import numpy as np
+import yaml
 
 
 @dataclass(frozen=True)
@@ -75,6 +76,55 @@ def load_config(path: Path, config_type: type) -> TrainConfig | EvalConfig:
     with open(path / "config.json", "r") as f:
         data = json.load(f)
     return config_type(**data)
+
+
+def load_config_from_file(config_path: str | Path, config_type: type) -> TrainConfig | EvalConfig:
+    """
+    Load configuration from a JSON or YAML file.
+    
+    Args:
+        config_path: Path to the configuration file
+        config_type: Type of config (TrainConfig or EvalConfig)
+    
+    Returns:
+        Configuration object of the specified type
+    """
+    path = Path(config_path)
+    if not path.exists():
+        raise FileNotFoundError(f"Config file not found: {config_path}")
+    
+    with open(path, "r") as f:
+        if path.suffix in [".yaml", ".yml"]:
+            data = yaml.safe_load(f)
+        elif path.suffix == ".json":
+            data = json.load(f)
+        else:
+            raise ValueError(f"Unsupported config file format: {path.suffix}")
+    
+    return config_type(**data)
+
+
+def merge_config_with_args(config: TrainConfig | EvalConfig, args: dict) -> TrainConfig | EvalConfig:
+    """
+    Merge command-line arguments into a configuration object.
+    CLI arguments override config file values.
+    
+    Args:
+        config: Base configuration from file
+        args: Dictionary of command-line arguments
+    
+    Returns:
+        New configuration object with overrides applied
+    """
+    config_dict = asdict(config)
+    config_type = type(config)
+    field_names = {f.name for f in fields(config_type)}
+    
+    for key, value in args.items():
+        if value is not None and key in field_names:
+            config_dict[key] = value
+    
+    return config_type(**config_dict)
 
 
 def save_metrics(metrics: Dict[str, Any], path: Path, filename: str = "metrics.json") -> None:
