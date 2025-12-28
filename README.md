@@ -1,7 +1,7 @@
 # AI Sim RL (CartPole) - Train/Eval + Video
 Besides simulations being cool, implementing AI is used to test.
 
-A minimal, **working** reinforcement learning demo you can extend.
+A minimal, **working** reinforcement learning demo, can extend.
 - Trains a PPO agent on `CartPole-v1` (Gymnasium).
 - Per-run experiment tracking with config and metrics.
 - TensorBoard logging for training visualization.
