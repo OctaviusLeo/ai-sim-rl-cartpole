@@ -12,7 +12,10 @@ import numpy as np
 from scipy import stats
 from stable_baselines3 import PPO
 
-from common import ensure_dirs, save_metrics, set_global_seed
+try:
+    from .common import ensure_dirs, save_metrics, set_global_seed
+except ImportError:
+    from common import ensure_dirs, save_metrics, set_global_seed
 
 
 def rollout(model: PPO, env: gym.Env, episodes: int, seed: int) -> dict:

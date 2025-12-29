@@ -11,7 +11,10 @@ from gymnasium.wrappers import RecordVideo
 from moviepy.editor import VideoFileClip
 from stable_baselines3 import PPO
 
-from common import ensure_dirs, set_global_seed, Paths
+try:
+    from .common import ensure_dirs, set_global_seed, Paths
+except ImportError:
+    from common import ensure_dirs, set_global_seed, Paths
 
 
 def main() -> None:

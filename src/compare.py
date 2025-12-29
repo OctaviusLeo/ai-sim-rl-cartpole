@@ -13,7 +13,10 @@ import numpy as np
 from scipy import stats
 from stable_baselines3 import PPO
 
-from common import ensure_dirs, set_global_seed
+try:
+    from .common import ensure_dirs, set_global_seed
+except ImportError:
+    from common import ensure_dirs, set_global_seed
 
 
 class BaselinePolicy:

@@ -1,3 +1,41 @@
+Metadata-Version: 2.4
+Name: ai-sim-rl-cartpole
+Version: 0.1.0
+Summary: A minimal reinforcement learning demo with experiment tracking and evaluation
+Home-page: https://github.com/yourusername/ai-sim-rl-cartpole
+Author: AI Sim RL Team
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: gymnasium[classic-control]>=0.29.1
+Requires-Dist: stable-baselines3>=2.3.0
+Requires-Dist: torch>=2.0.0
+Requires-Dist: numpy>=1.24.0
+Requires-Dist: matplotlib>=3.7.0
+Requires-Dist: moviepy==1.0.3
+Requires-Dist: imageio[ffmpeg]>=2.36.0
+Requires-Dist: scipy>=1.10.0
+Requires-Dist: tensorboard>=2.14.0
+Requires-Dist: pyyaml>=6.0.0
+Dynamic: author
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
 # AI Sim RL (CartPole) - Train/Eval + Video
 Besides simulations being cool, implementing AI is used to test.
 

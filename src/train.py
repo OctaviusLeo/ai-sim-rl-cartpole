@@ -11,16 +11,28 @@ import matplotlib.pyplot as plt
 from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import BaseCallback
 
-from common import (
-    TrainConfig,
-    create_run_dir,
-    ensure_dirs,
-    load_config_from_file,
-    merge_config_with_args,
-    save_config,
-    save_metrics,
-    set_global_seed,
-)
+try:
+    from .common import (
+        TrainConfig,
+        create_run_dir,
+        ensure_dirs,
+        load_config_from_file,
+        merge_config_with_args,
+        save_config,
+        save_metrics,
+        set_global_seed,
+    )
+except ImportError:
+    from common import (
+        TrainConfig,
+        create_run_dir,
+        ensure_dirs,
+        load_config_from_file,
+        merge_config_with_args,
+        save_config,
+        save_metrics,
+        set_global_seed,
+    )
 
 
 class RewardLogger(BaseCallback):

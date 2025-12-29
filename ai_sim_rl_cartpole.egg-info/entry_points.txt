@@ -1,0 +1,6 @@
+[console_scripts]
+rl-compare = src.compare:main
+rl-evaluate = src.evaluate:main
+rl-reproduce = src.reproduce:main
+rl-train = src.train:main
+rl-video = src.record_video:main
