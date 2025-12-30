@@ -17,7 +17,6 @@ A minimal, **working** reinforcement learning demo, can extend.
 - Optionally records a short rollout video.
 
 ## Demo
-
 ![CartPole PPO demo](assets/cartpole_demo-episode-0.gif)
 
 ## Quickstart
