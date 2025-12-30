@@ -69,7 +69,9 @@ def create_run_dir(config: TrainConfig) -> Path:
     return run_dir
 
 
-def save_config(config: Union[TrainConfig, EvalConfig, Dict[str, Any]], path: Union[Path, str]) -> None:
+def save_config(
+    config: Union[TrainConfig, EvalConfig, Dict[str, Any]], path: Union[Path, str]
+) -> None:
     """
     Save configuration to a JSON file.
 
