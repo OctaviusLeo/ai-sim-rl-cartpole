@@ -24,7 +24,16 @@ Artifacts: [outputs/comparisons/results.md](outputs/comparisons/results.md), [ou
 - Reproducibility (configs saved per run, deterministic seeds)
 - ML/SWE hygiene (CI, tests, formatting, artifacts)
 
+## Tech stack
+- Gymnasium (classic-control), Stable-Baselines3 (PPO), PyTorch
+- Experiment artifacts: JSON metrics + TensorBoard
+- Evaluation: baselines + multi-seed rollouts + 95% confidence intervals
+
 ## Quickstart
+### Prerequisites
+- Python 3.8+
+- FFmpeg (required only for video/GIF recording via `moviepy`/`imageio[ffmpeg]`)
+
 ```bash
 python -m venv .venv
 # Windows: .venv\Scripts\activate
@@ -42,6 +51,19 @@ python -m src.compare --model-path outputs/runs/<run-dir>/model.zip --episodes 2
 
 # 3) Record a short demo GIF (writes videos/ and/or assets/ depending on your config)
 python -m src.record_video --model-path outputs/runs/<run-dir>/model.zip --gif
+```
+
+## Reproducibility
+- Re-run an existing experiment from its saved config:
+
+```bash
+python -m src.reproduce outputs/runs/<run-dir>
+```
+
+- Validate determinism and core behaviors via tests:
+
+```bash
+pytest -q
 ```
 
 ## Repo structure
