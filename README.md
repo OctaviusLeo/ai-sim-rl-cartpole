@@ -3,7 +3,7 @@
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-A small, hiring-ready reinforcement learning project: train PPO on CartPole, evaluate with baselines + confidence intervals, and keep runs reproducible (CI included).
+A small, reinforcement learning project: train PPO on CartPole, evaluate with baselines + confidence intervals, and keep runs reproducible (CI included).
 
 ## Table of Contents
 - [Demo](#demo)
