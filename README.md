@@ -141,4 +141,3 @@ make compare
 ## Future plans
 - Add a second environment (`Acrobot-v1`), compare training curves
 - Add hyperparameter sweep with results table
-- AG-Lite as a real product
